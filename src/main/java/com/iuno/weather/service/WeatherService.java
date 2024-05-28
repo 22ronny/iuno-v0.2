@@ -24,10 +24,9 @@ public class WeatherService {
 
     public String getLastWeatherData() {
         WeatherData weatherNow = repositoryPostgres.findFirstByOrderByTimeDesc();
-        String massage = weatherNow.getTemperature() +  " °C" + "\n" +
+        return weatherNow.getTemperature() +  " °C" + "\n" +
                 weatherNow.getPressure() + " hPa Luftdruck" + "\n" +
                 weatherNow.getHumidity() + " % Luftfeuchtigkeit";
-        return massage;
     }
 
     public String getHighAndLowTemperatureNight() {
@@ -37,15 +36,11 @@ public class WeatherService {
         List<WeatherData> weatherNight = repositoryPostgres.findByTimeBetween(yesterday7PM, today7AM);
         List<Double> temperatureNight = weatherNight.stream()
                 .map(WeatherData::getTemperature)
-                .collect(Collectors.toList());
+                .toList();
         Optional<Double> temperaturNightHigh = temperatureNight.stream()
                 .max(Double::compareTo);
         Optional<Double> temperatureNightMinimum = temperatureNight.stream()
                 .min(Double::compareTo);
-        if (temperaturNightHigh.isPresent() && temperatureNightMinimum.isPresent()) {
-            return "Temperatur Nacht \n max: " + temperaturNightHigh.get() + "\n min: " + temperatureNightMinimum.get();
-        } else {
-            return "Daten fehlen";
-        }
+        return temperaturNightHigh.map(aDouble -> "Temperatur Nacht \n max: " + aDouble + "\n min: " + temperatureNightMinimum.get()).orElse("Daten fehlen");
     }
 }

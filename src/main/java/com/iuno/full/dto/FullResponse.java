@@ -1,10 +1,10 @@
-package com.iuno.weather.dto;
+package com.iuno.full.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class WeatherResponse {
+@Setter
+public class FullResponse {
     private Double val;
 }
