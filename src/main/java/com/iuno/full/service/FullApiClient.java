@@ -27,7 +27,7 @@ public class FullApiClient {
         Map<String, Double> priceMap = new HashMap<>();
 
 
-        if (oResponsePriceAvanti.isPresent()) {
+        if (oResponsePriceAvanti.isPresent() && oResponsePriceAvanti.get().getVal() > 0) {
             priceMap.put("Avanti", oResponsePriceAvanti.get().getVal());
         }
         if (oResponsePriceJet.isPresent() && oResponsePriceJet.get().getVal() > 0) {
@@ -36,6 +36,7 @@ public class FullApiClient {
         if (oResponsePriceHofer.isPresent() && oResponsePriceHofer.get().getVal() > 0) {
             priceMap.put("Hofer", oResponsePriceHofer.get().getVal());
         }
+
         return priceMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
