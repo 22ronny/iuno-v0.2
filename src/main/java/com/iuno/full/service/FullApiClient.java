@@ -19,23 +19,46 @@ public class FullApiClient {
         String urlPriceAvanti = url + "fuelpricemonitor.1.Horn_Super95.0.prices.0.amount";
         String urlPriceJet = url + "fuelpricemonitor.1.Horn_Super95.1.prices.0.amount";
         String urlPriceHofer = url + "fuelpricemonitor.1.Horn_Super95.3.prices.0.amount";
+        String urlPriceTurmoel = url + "fuelpricemonitor.1.Horn_Super95.2.prices.0.amount";
+        String urlPriceAvia = url + "fuelpricemonitor.1.Horn_Super95.5.prices.0.amount";
 
         var oResponsePriceAvanti = Optional.ofNullable(restTemplate.getForObject(urlPriceAvanti, FullResponse.class));
         var oResponsePriceJet = Optional.ofNullable(restTemplate.getForObject(urlPriceJet, FullResponse.class));
         var oResponsePriceHofer = Optional.ofNullable(restTemplate.getForObject(urlPriceHofer, FullResponse.class));
+        var oResponsePriceTurmoel = Optional.ofNullable(restTemplate.getForObject(urlPriceTurmoel, FullResponse.class));
+        var oResponsePriceAvia = Optional.ofNullable(restTemplate.getForObject(urlPriceAvia, FullResponse.class));
 
         Map<String, Double> priceMap = new HashMap<>();
 
+        oResponsePriceAvanti.ifPresent(response -> {
+            if (response.getVal() != null && response.getVal() > 0) {
+                priceMap.put("Avanti", response.getVal());
+            }
+        });
 
-        if (oResponsePriceAvanti.isPresent() && oResponsePriceAvanti.get().getVal() > 0) {
-            priceMap.put("Avanti", oResponsePriceAvanti.get().getVal());
-        }
-        if (oResponsePriceJet.isPresent() && oResponsePriceJet.get().getVal() > 0) {
-            priceMap.put("Jet", oResponsePriceJet.get().getVal());
-        }
-        if (oResponsePriceHofer.isPresent() && oResponsePriceHofer.get().getVal() > 0) {
-            priceMap.put("Hofer", oResponsePriceHofer.get().getVal());
-        }
+        oResponsePriceJet.ifPresent(response -> {
+            if (response.getVal() != null && response.getVal() > 0) {
+                priceMap.put("Jet", response.getVal());
+            }
+        });
+
+        oResponsePriceHofer.ifPresent(response -> {
+            if (response.getVal() != null && response.getVal() > 0) {
+                priceMap.put("Hofer", response.getVal());
+            }
+        });
+
+        oResponsePriceTurmoel.ifPresent(response -> {
+            if (response.getVal() != null && response.getVal() > 0) {
+                priceMap.put("Turmöl (Mold)", response.getVal());
+            }
+        });
+
+        oResponsePriceAvia.ifPresent(response -> {
+            if (response.getVal() != null && response.getVal() > 0) {
+                priceMap.put("Avia (Gr. Burgstall)", response.getVal());
+            }
+        });
 
         return priceMap.entrySet()
                 .stream()
