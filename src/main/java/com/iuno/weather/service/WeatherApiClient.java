@@ -3,6 +3,7 @@ package com.iuno.weather.service;
 import com.iuno.weather.dto.WeatherResponse;
 import com.iuno.weather.entity.WeatherData;
 import com.iuno.weather.repository.WeatherDataRepositoryPostgres;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +13,9 @@ import java.time.ZoneOffset;
 
 @Service
 public class WeatherApiClient {
+
+    @Value("${ioBroker.getUrl}")
+    private String ioBrokerGetUrl;
 
     private final WeatherDataRepositoryPostgres repositoryPostgres;
 
@@ -24,9 +28,9 @@ public class WeatherApiClient {
         LocalDateTime localDateTime = LocalDateTime.now(Clock.systemUTC());
         WeatherData weatherData = new WeatherData();
 
-        String urlTemperature = "http://192.168.1.96:8087/get/zigbee.0.00158d0002b0d58d.temperature";
-        String urlHumidity = "http://192.168.1.96:8087/get/zigbee.0.00158d0002b0d58d.humidity";
-        String urlPressure = "http://192.168.1.96:8087/get/zigbee.0.00158d0002b0d58d.pressure";
+        String urlTemperature = ioBrokerGetUrl + "zigbee.0.00158d0002b0d58d.temperature";
+        String urlHumidity = ioBrokerGetUrl + "zigbee.0.00158d0002b0d58d.humidity";
+        String urlPressure = ioBrokerGetUrl + "zigbee.0.00158d0002b0d58d.pressure";
 
         WeatherResponse responseTemperature = restTemplate.getForObject(urlTemperature, WeatherResponse.class);
         WeatherResponse responseHumidity = restTemplate.getForObject(urlHumidity, WeatherResponse.class);

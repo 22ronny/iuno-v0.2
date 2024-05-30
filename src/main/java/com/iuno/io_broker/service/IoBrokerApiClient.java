@@ -1,5 +1,6 @@
 package com.iuno.io_broker.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -7,10 +8,13 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class IoBrokerApiClient {
 
+    @Value("${ioBroker.setUrl}")
+    private String ioBrokerSetUrl;
+
     public void bulb(int newValue) {
 
         // Die URL des ioBroker-Endpunkts für den Datenpunkt
-        String url = "http://192.168.1.96:8087/set/zigbee.0.00158d00052b3ac2.brightness?value=" + newValue;
+        String url = ioBrokerSetUrl +  "zigbee.0.00158d00052b3ac2.brightness?value=" + newValue;
 
         // HTTP-Anfrage-Header konfigurieren
         HttpHeaders headers = new HttpHeaders();
