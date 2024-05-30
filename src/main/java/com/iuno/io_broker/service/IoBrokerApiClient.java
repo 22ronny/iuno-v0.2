@@ -14,7 +14,7 @@ public class IoBrokerApiClient {
     public void bulb(int newValue) {
 
         // Die URL des ioBroker-Endpunkts für den Datenpunkt
-        String url = ioBrokerSetUrl +  "zigbee.0.00158d00052b3ac2.brightness?value=" + newValue;
+        String url = ioBrokerSetUrl + "zigbee.0.00158d00052b3ac2.brightness?value=" + newValue;
 
         // HTTP-Anfrage-Header konfigurieren
         HttpHeaders headers = new HttpHeaders();

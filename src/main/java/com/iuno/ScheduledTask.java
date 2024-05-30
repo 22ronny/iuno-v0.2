@@ -22,7 +22,7 @@ public class ScheduledTask {
     }
 
 //    @Scheduled(cron = "0 0 * * * *")
-@Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 */30 * * * *")
     public void addFullPriceToDatabase() {
         fuelService.getFuelStationPrice();
     }
