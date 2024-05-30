@@ -1,10 +1,10 @@
-package com.iuno.full.dto;
+package com.iuno.fuel.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FullResponse {
+public class FuelResponse {
     private Double val;
 }

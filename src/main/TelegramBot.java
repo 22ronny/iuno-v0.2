@@ -1,6 +1,6 @@
 package com.iuno.telegramBot.service;
 
-import com.iuno.full.service.FullApiClient;
+import com.iuno.fuel.service.FullApiClient;
 import com.iuno.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

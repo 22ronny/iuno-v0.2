@@ -1,6 +1,6 @@
 package com.iuno.telegramBot.service;
 
-import com.iuno.full.service.FullApiClient;
+import com.iuno.fuel.service.FuelApiClient;
 import com.iuno.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final WeatherService WeatherService;
-    private final FullApiClient fullApiClient;
+    private final FuelApiClient fuelApiClient;
 
-    public TelegramBot(WeatherService WeatherService, FullApiClient fullApiClient) {
+    public TelegramBot(WeatherService WeatherService, FuelApiClient fuelApiClient) {
         this.WeatherService = WeatherService;
-        this.fullApiClient = fullApiClient;
+        this.fuelApiClient = fuelApiClient;
     }
 
     @Value("${bot.username}")
@@ -78,7 +78,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             send(message, update);
         }
         if (command.equals("/full")) {
-            String message = fullApiClient.fetchFullPrice();
+            String message = fuelApiClient.mapToStringFuelPrice(fuelApiClient.fetchFullPrice());
             send(message, update);
         }
     }
@@ -94,7 +94,5 @@ public class TelegramBot extends TelegramLongPollingBot {
 //        System.out.println("Bot token: " + token); // Debug-Ausgabe
         return token;
     }
-
-
 }
 

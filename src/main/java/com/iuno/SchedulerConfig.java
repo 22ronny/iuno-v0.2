@@ -1,4 +1,4 @@
-package com.iuno.weather.service;
+package com.iuno;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
