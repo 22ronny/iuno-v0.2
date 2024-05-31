@@ -73,11 +73,11 @@ public class TelegramBot extends TelegramLongPollingBot {
                     "Gibt die Aktuelle Wetterdaten zurück \n" +
                     "/tempnight \n" +
                     "Gibt die maximale und minimale Temperatur der letzten Nacht zurück \n" +
-                    "/full \n" +
+                    "/fuel \n" +
                     "Spritpreise";
             send(message, update);
         }
-        if (command.equals("/full")) {
+        if (command.equals("/fuel")) {
             String message = fuelApiClient.mapToStringFuelPrice(fuelApiClient.fetchFullPrice());
             send(message, update);
         }
